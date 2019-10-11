@@ -16,9 +16,35 @@ public class PersonDataService {
     );
 
     public Person findPerson(String lastName, String firstName) {
-        return PERSON_DATA.stream()
+        List<Person> person = PERSON_DATA.stream()
             .filter(p -> p.getFirstName().equalsIgnoreCase(firstName)
                 && p.getLastName().equalsIgnoreCase(lastName))
-            .collect(Collectors.toList()).get(0);
+            .collect(Collectors.toList());
+        if(person.size() > 0)
+            return person.get(0);
+        else
+            return null;
+    }
+
+    public List<Person> findPersonWithSurname(String lastName) {
+        return PERSON_DATA.stream()
+                .filter(p -> p.getLastName().equalsIgnoreCase(lastName))
+                .collect(Collectors.toList());
+    }
+
+    public String addPerson(String lastName, String firstName) {
+        String personDetails = null;
+        boolean isPersonPresent = PERSON_DATA.stream()
+                .anyMatch(p -> p.getFirstName().equalsIgnoreCase(firstName)
+                        && p.getLastName().equalsIgnoreCase(lastName));
+        if(isPersonPresent) {
+            personDetails = "Person with firstName "+firstName+" and lastName "+lastName+" is already present. Please use PATCH command to update the existing record";
+            System.out.println(personDetails);
+
+        } else {
+            Person newPerson = new Person(firstName, lastName);
+            PERSON_DATA.add(newPerson);
+        }
+        return personDetails;
     }
 }
