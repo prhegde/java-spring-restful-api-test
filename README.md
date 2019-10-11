@@ -12,7 +12,7 @@
 Make the tests run green (there should be one failing test)
 
 ### Solution:
-//Usecase: Exercise 1 (Adding static keyword to the counter variable in Person class)
+Usecase: Exercise 1 (Adding static keyword to the counter variable in Person class)
 private static final AtomicLong counter = new AtomicLong();
 
 ---------------------------------------------------------------------------------------------------------
@@ -22,11 +22,11 @@ Update the existing `/person/{lastName}/{firstName}` endpoint to return an appro
 - prove your results
 
 ### Solution:
-//Usecase: Exercise 2
+Usecase: Exercise 2
 
  First change:
 
-  //PersonController.java
+  PersonController.java
   
     @GetMapping("/person/{lastName}/{firstName}")
     public Person person(@PathVariable(value="lastName") String lastName,
@@ -42,17 +42,17 @@ Update the existing `/person/{lastName}/{firstName}` endpoint to return an appro
     
  Second change:
  
-  // PersonDataService.java
+  PersonDataService.java
   
-  public Person findPerson(String lastName, String firstName) {
-        List<Person> person = PERSON_DATA.stream()
-            .filter(p -> p.getFirstName().equalsIgnoreCase(firstName)
-                && p.getLastName().equalsIgnoreCase(lastName))
-            .collect(Collectors.toList());
-        if(person.size() > 0)
-            return person.get(0);
-        else
-            return null;
+    public Person findPerson(String lastName, String firstName) {
+         List<Person> person = PERSON_DATA.stream()
+             .filter(p -> p.getFirstName().equalsIgnoreCase(firstName)
+                 && p.getLastName().equalsIgnoreCase(lastName))
+             .collect(Collectors.toList());
+         if(person.size() > 0)
+             return person.get(0);
+         else
+             return null;
     }
   
   
@@ -65,11 +65,11 @@ Write a RESTful API endpoint to retrieve a list of all people with a particular 
 
 
 ### Solution:
-//Usecase: Exercise 3
+Usecase: Exercise 3
 
 First change:
 
-  //PersonController.java
+  PersonController.java
   
     @GetMapping("/person/{lastName}")
     public List<Person> personWithSurname(@PathVariable(value="lastName") String lastName) {
@@ -85,9 +85,9 @@ First change:
     
 Second change:
 
-  // PersonDataService.java
+  PersonDataService.java
   
-  public List<Person> findPersonWithSurname(String lastName) {
+    public List<Person> findPersonWithSurname(String lastName) {
         return PERSON_DATA.stream()
                 .filter(p -> p.getLastName().equalsIgnoreCase(lastName))
                 .collect(Collectors.toList());
@@ -102,13 +102,13 @@ Write a RESTful API endpoint to add a new value to the list
 
 
 ### Solution:
-//Usecase: Exercise 4
+Usecase: Exercise 4
 
 First change:
 
-  //PersonController.java
+  PersonController.java
   
-   @PostMapping("/person/{lastName}/{firstName}")
+    @PostMapping("/person/{lastName}/{firstName}")
     public String addPerson(@PathVariable(value="lastName") String lastName,
                           @PathVariable(value="firstName") String firstName) {
         String personDetails = personDataService.addPerson(lastName, firstName);
@@ -117,9 +117,9 @@ First change:
    
 Second change:
 
-  // PersonDataService.java
+  PersonDataService.java
   
-  public String addPerson(String lastName, String firstName) {
+    public String addPerson(String lastName, String firstName) {
         String personDetails = null;
         boolean isPersonPresent = PERSON_DATA.stream()
                 .anyMatch(p -> p.getFirstName().equalsIgnoreCase(firstName)
